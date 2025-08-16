@@ -1,0 +1,154 @@
+@font-face {
+    font-family: 'Papyrus';
+    src: url('papyrus.ttf') format('truetype');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: 'Papyrus', Arial, sans-serif;
+    background-color: white;
+    color: black;
+    text-align: center;
+    padding: 0;
+    min-height: 100vh;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    position: relative;
+    overflow: hidden;
+    /* Background image will be set by JavaScript */
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-image 0.5s ease-in;
+}
+
+/* Semi-transparent overlay to reduce background image opacity */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.7);
+    z-index: -1;
+}
+
+.gif {
+    position: absolute;
+    opacity: 1.0;
+    transform: scaleX(1.5);
+    transform-origin: center;
+    z-index: -1;
+}
+
+.gif-top-left {
+    top: 20px;
+    left: 20px;
+    width: 150px;
+    height: auto;
+}
+
+.gif-top-right {
+    top: 20px;
+    right: 20px;
+    width: 150px;
+    height: auto;
+}
+
+.gif-bottom-left {
+    bottom: 20px;
+    left: 20px;
+    width: 150px;
+    height: auto;
+}
+
+.gif-bottom-right {
+    bottom: 20px;
+    right: 20px;
+    width: 150px;
+    height: auto;
+}
+
+h1 {
+    font-size: 2rem;
+    margin: 0;
+    transform: scaleX(1.5);
+    transform-origin: center;
+    /* Pure text inversion - no backgrounds or boxes */
+    mix-blend-mode: difference;
+    color: white;
+}
+
+.countdown {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin: 0;
+}
+
+.time-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 120px;
+}
+
+.number {
+    font-size: 3rem;
+    font-weight: bold;
+    margin: 0;
+    min-width: 2.5em;
+    display: inline-block;
+    text-align: center;
+    transform: scaleX(1.3);
+    transform-origin: center;
+    /* Pure text inversion - no backgrounds or boxes */
+    mix-blend-mode: difference;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 0;
+    }
+    
+    h1 {
+        font-size: 1.5rem;
+        transform: scaleX(1.2);
+        margin: 0;
+    }
+    
+    .countdown {
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+    
+    .time-unit {
+        min-width: 80px;
+    }
+    
+    .number {
+        font-size: 2rem;
+        transform: scaleX(1.1);
+        min-width: 2em;
+    }
+}

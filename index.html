@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown to Gloriousness</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <img src="oranges-fruits.gif" class="gif gif-top-left" alt="Oranges Fruits">
+    <img src="oranges-fruits.gif" class="gif gif-top-right" alt="Oranges Fruits">
+    <img src="oranges-fruits.gif" class="gif gif-bottom-left" alt="Oranges Fruits">
+    <img src="oranges-fruits.gif" class="gif gif-bottom-right" alt="Oranges Fruits">
+    
+    <h1>Countdown to Gloriousness</h1>
+    <div class="countdown">
+        <div class="time-unit">
+            <span id="days" class="number">00</span>
+        </div>
+        <div class="time-unit">
+            <span id="hours" class="number">00</span>
+        </div>
+        <div class="time-unit">
+            <span id="minutes" class="number">00</span>
+        </div>
+        <div class="time-unit">
+            <span id="seconds" class="number">00</span>
+        </div>
+        <div class="time-unit">
+            <span id="milliseconds" class="number">000</span>
+        </div>
+    </div>
+    
+    <script>
+        // Enhanced random background image loader with CORS-safe sources
+        function setRandomBackground() {
+            // Generate smaller dimensions for lower quality and faster loading
+            const width = Math.floor(Math.random() * 200) + 100; // 100-300px for lower quality
+            const height = Math.floor(Math.random() * 150) + 100; // 100-250px for lower quality
+            const randomId = Math.floor(Math.random() * 100000);
+            
+            // CORS-safe image sources that work with localhost
+            const imageSources = [
+                `https://picsum.photos/${width}/${height}?random=${randomId}`,
+                `https://picsum.photos/${width}/${height}?random=${randomId + 1}`,
+                `https://picsum.photos/${width}/${height}?random=${randomId + 2}`,
+                `https://picsum.photos/${width}/${height}?random=${randomId + 3}`,
+                `https://picsum.photos/${width}/${height}?random=${randomId + 4}`
+            ];
+            
+            // Pick a random source
+            const imageUrl = imageSources[Math.floor(Math.random() * imageSources.length)];
+            
+            console.log('Loading random background image:', imageUrl);
+            
+            // Create image preloader with timeout
+            const img = new Image();
+            
+            // Set a timeout for image loading
+            const loadTimeout = setTimeout(() => {
+                console.log('Image loading timed out, trying fallback');
+                const nextIndex = (imageSources.indexOf(imageUrl) + 1) % imageSources.length;
+                img.src = imageSources[nextIndex];
+            }, 8000); // 8 second timeout
+            
+            img.onload = function() {
+                clearTimeout(loadTimeout);
+                console.log('Background image loaded successfully');
+                
+                // Set background image to stretch and fill entire screen with no gaps
+                document.body.style.backgroundImage = `url(${imageUrl})`;
+                document.body.style.backgroundSize = '100vw 100vh';
+                document.body.style.backgroundPosition = '0 0';
+                document.body.style.backgroundRepeat = 'no-repeat';
+                document.body.style.transition = 'background-image 0.5s ease-in';
+                
+                // Add a subtle loading indicator
+                document.body.style.opacity = '1';
+            };
+            
+            img.onerror = function() {
+                clearTimeout(loadTimeout);
+                console.log('Background image failed to load, trying next source');
+                
+                // Try next image source if available
+                const currentIndex = imageSources.indexOf(imageUrl);
+                const nextSource = imageSources[(currentIndex + 1) % imageSources.length];
+                
+                if (nextSource !== imageUrl) {
+                    img.src = nextSource;
+                } else {
+                    // All sources failed, use fallback
+                    console.log('All image sources failed, using fallback');
+                    document.body.style.backgroundColor = '#f8f8f8';
+                }
+            };
+            
+            // Start loading
+            img.src = imageUrl;
+        }
+        
+        // Set background when page loads
+        document.addEventListener('DOMContentLoaded', setRandomBackground);
+        
+        // Also set background on page refresh for variety
+        window.addEventListener('beforeunload', function() {
+            document.body.style.backgroundImage = '';
+        });
+        
+        // Add manual refresh button functionality
+        window.addEventListener('keydown', function(e) {
+            if (e.key === 'r' || e.key === 'R') {
+                console.log('Manual refresh triggered');
+                setRandomBackground();
+            }
+        });
+    </script>
+    
+    <script src="script.js"></script>
+</body>
+</html>
