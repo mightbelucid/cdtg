@@ -1,5 +1,5 @@
-// Set the target date: August 21st at 8:00 AM UK time
-const targetDate = new Date('2025-08-21T08:00:00+01:00'); // UK time (BST)
+// Set the target date: August 21st at 9:00 AM UK time
+const targetDate = new Date('2025-08-21T09:00:00+01:00'); // UK time (BST)
 
 function updateCountdown() {
     const now = new Date();
